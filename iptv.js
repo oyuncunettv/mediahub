@@ -1,58 +1,44 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const nsfwToggle = document.getElementById('nsfwToggle');
     const videoPlayer = document.getElementById('iptvPlayer');
-    const prevButton = document.getElementById('prevButton');
-    const nextButton = document.getElementById('nextButton');
     const videoSource = document.getElementById('videoSource');
+    const prevButton = document.getElementById('prevVideo');
+    const nextButton = document.getElementById('nextVideo');
 
     let videos = [];
     let currentIndex = 0;
 
-    function fetchVideoList() {
-        fetch('videolist.json')
-            .then(response => response.json())
-            .then(data => {
-                updateVideoList(data);
-            })
-            .catch(error => {
-                console.error('Video list yüklenirken hata oluştu:', error);
-            });
-    }
+    // Fetch video list from JSON file
+    fetch('videolist.json')
+        .then(response => response.json())
+        .then(data => {
+            videos = data.videos;
+            if (videos.length > 0) {
+                loadVideo();
+            }
+        })
+        .catch(error => console.error('Error loading video list:', error));
 
-    function updateVideoList(data) {
-        if (nsfwToggle.checked) {
-            videos = [...data.defaultVideos, ...data.nsfwVideos];
-        } else {
-            videos = [...data.defaultVideos];
+    function loadVideo() {
+        if (videos.length > 0) {
+            videoSource.src = videos[currentIndex];
+            videoPlayer.load();
         }
-        currentIndex = Math.floor(Math.random() * videos.length);
-        updateVideoSource();
     }
 
-    function updateVideoSource() {
-        videoSource.src = videos[currentIndex];
-        videoPlayer.load();
+    function showPrevVideo() {
+        if (videos.length > 0) {
+            currentIndex = (currentIndex - 1 + videos.length) % videos.length;
+            loadVideo();
+        }
     }
 
-    nsfwToggle.addEventListener('change', function() {
-        localStorage.setItem('nsfwEnabled', nsfwToggle.checked);
-        updateVideoListFromLocal();
-    });
-
-    function updateVideoListFromLocal() {
-        fetchVideoList();
+    function showNextVideo() {
+        if (videos.length > 0) {
+            currentIndex = (currentIndex + 1) % videos.length;
+            loadVideo();
+        }
     }
 
-    prevButton.addEventListener('click', function() {
-        currentIndex = (currentIndex - 1 + videos.length) % videos.length;
-        updateVideoSource();
-    });
-
-    nextButton.addEventListener('click', function() {
-        currentIndex = (currentIndex + 1) % videos.length;
-        updateVideoSource();
-    });
-
-    // Başlangıçta videoyu yükle
-    fetchVideoList();
+    prevButton.addEventListener('click', showPrevVideo);
+    nextButton.addEventListener('click', showNextVideo);
 });
