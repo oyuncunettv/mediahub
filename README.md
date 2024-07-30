@@ -4,7 +4,7 @@ MediaHub, kullanıcıların kendi özel IPTV içeriğini izleyebileceği ve yak�
 
 ## Özellikler
 
-- **Özel IPTV Kanalları**: Kullanıcılar, belirli video dosyalarını izleyebilirler.
+- **Özel IPTV Kanalları**: Kullanıcılar, MediaHub'ın özel IPTV Kanalını izleyebilirler.
 - **Video Format Desteği**: MKV, MP4 ve diğer popüler video formatları.
 - **Tarayıcı Uyumluluğu**: Site, modern tarayıcılarla uyumludur. Eski tarayıcı kullanıcıları için hata verecektir.
 
@@ -20,13 +20,9 @@ MediaHub, kullanıcıların kendi özel IPTV içeriğini izleyebileceği ve yak�
 - **Kullanıcı Hesapları**: Kullanıcıların hesap oluşturabileceği ve yönetebileceği özellikler eklenmesi planlanmaktadır.
 - **Gelişmiş Video Oynatıcı**: Daha fazla video formatı ve özellik desteği.
 
-## Katkıda Bulunma
-
-Eğer bu projeye katkıda bulunmak isterseniz, lütfen [bu yönergeleri](CONTRIBUTING.md) takip edin.
-
 ## Lisans
 
-Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır.
+Bu proje [MIT licence](LICENSE) ile lisanslanmıştır.
 
 ## İletişim
 
