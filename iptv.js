@@ -1,63 +1,55 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const nsfwToggle = document.getElementById('nsfwToggle');
-    const videoPlayer = document.getElementById('iptvPlayer');
-    const videoSource = document.getElementById('videoSource');
-    const prevButton = document.getElementById('prevVideo');
-    const nextButton = document.getElementById('nextVideo');
-
-    let videos = [];
+document.addEventListener("DOMContentLoaded", function() {
+    let videoList = [];
     let currentIndex = 0;
 
+    // Videoları JSON'dan al
     fetch('videolist.json')
         .then(response => response.json())
         .then(data => {
-            videos = nsfwToggle.checked ? data.nsfwVideos : data.defaultVideos;
-            videos = shuffleArray(videos);
-            updateVideoSource();
+            // NSFW ve default videoları birleştir
+            videoList = [...data.defaultVideos, ...data.nsfwVideos];
+            // Videoları karıştır
+            videoList = videoList.sort(() => Math.random() - 0.5);
+            loadVideo();
         })
-        .catch(error => console.error('Error loading video list:', error));
+        .catch(error => console.error('JSON yüklenirken hata:', error));
 
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    }
-
-    function updateVideoSource() {
-        if (videos.length > 0) {
-            videoSource.src = videos[currentIndex];
+    function loadVideo() {
+        if (videoList.length > 0) {
+            const videoPlayer = document.getElementById('iptvPlayer');
+            const videoSource = document.getElementById('videoSource');
+            videoSource.src = videoList[currentIndex];
             videoPlayer.load();
         }
     }
 
-    function showPreviousVideo() {
-        if (videos.length > 0) {
-            currentIndex = (currentIndex - 1 + videos.length) % videos.length;
-            updateVideoSource();
+    document.getElementById('prevVideo').addEventListener('click', function() {
+        if (videoList.length > 0) {
+            currentIndex = (currentIndex - 1 + videoList.length) % videoList.length;
+            loadVideo();
         }
-    }
+    });
 
-    function showNextVideo() {
-        if (videos.length > 0) {
-            currentIndex = (currentIndex + 1) % videos.length;
-            updateVideoSource();
+    document.getElementById('nextVideo').addEventListener('click', function() {
+        if (videoList.length > 0) {
+            currentIndex = (currentIndex + 1) % videoList.length;
+            loadVideo();
         }
-    }
+    });
 
-    nsfwToggle.addEventListener('change', function() {
+    document.getElementById('nsfwToggle').addEventListener('change', function() {
+        const isNSFW = this.checked;
         fetch('videolist.json')
             .then(response => response.json())
             .then(data => {
-                videos = nsfwToggle.checked ? data.nsfwVideos : data.defaultVideos;
-                videos = shuffleArray(videos);
-                currentIndex = 0; // Reset index
-                updateVideoSource();
-            })
-            .catch(error => console.error('Error loading video list:', error));
+                if (isNSFW) {
+                    videoList = data.nsfwVideos;
+                } else {
+                    videoList = data.defaultVideos;
+                }
+                videoList = videoList.sort(() => Math.random() - 0.5);
+                currentIndex = 0;
+                loadVideo();
+            });
     });
-
-    prevButton.addEventListener('click', showPreviousVideo);
-    nextButton.addEventListener('click', showNextVideo);
 });
