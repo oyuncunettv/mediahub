@@ -12,6 +12,18 @@
             padding: 20px;
             background-color: #f4f4f4;
         }
+        header {
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            position: relative;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .ad-container {
+            margin: 10px 0;
+        }
         video {
             width: 80%;
             max-width: 1280px;
@@ -34,17 +46,23 @@
     </style>
 </head>
 <body>
-    <!-- Yandex.RTB R-A-10749386-1 -->
-    <div id="yandex_rtb_R-A-10749386-1"></div>
-    <script>
-    window.yaContextCb.push(() => {
-        Ya.Context.AdvManager.render({
-            "blockId": "R-A-10749386-1",
-            "renderTo": "yandex_rtb_R-A-10749386-1"
-        })
-    })
-    </script>
-    <h1>MediaHub IPTV Kanalı</h1>
+    <header>
+        <h1>MediaHub IPTV Kanalı</h1>
+        <!-- Reklam Alanı -->
+        <div class="ad-container">
+            <!-- Yandex.RTB Reklam Kodu -->
+            <div id="yandex_rtb_R-A-10749386-1"></div>
+            <script>
+            window.yaContextCb = window.yaContextCb || [];
+            window.yaContextCb.push(() => {
+                Ya.Context.AdvManager.render({
+                    "blockId": "R-A-10749386-1",
+                    "renderTo": "yandex_rtb_R-A-10749386-1"
+                });
+            });
+            </script>
+        </div>
+    </header>
     <div class="nsfw-toggle">
         <label>
             <input type="checkbox" id="nsfwToggle"> NSFW'yu Kapat
