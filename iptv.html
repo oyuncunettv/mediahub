@@ -19,21 +19,35 @@
             border: 1px solid #ccc;
             border-radius: 10px;
         }
-        .controls {
+        .nsfw-toggle {
             margin: 20px 0;
+        }
+        .controls {
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 0 10px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <h1>MediaHub IPTV Kanalı</h1>
+    <div class="nsfw-toggle">
+        <label>
+            <input type="checkbox" id="nsfwToggle"> NSFW'yu Kapat
+        </label>
+    </div>
+    <video id="iptvPlayer" controls>
+        <source id="videoSource" type="video/mp4">
+        Tarayıcınız video etiketini desteklemiyor.
+    </video>
     <div class="controls">
         <button id="prevVideo">Önceki Video</button>
         <button id="nextVideo">Sonraki Video</button>
     </div>
-    <video id="iptvPlayer" controls>
-        <source id="videoSource" src="" type="video/mp4">
-        Tarayıcınız video etiketini desteklemiyor.
-    </video>
     <script src="iptv.js"></script>
 </body>
 </html>
