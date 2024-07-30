@@ -31,4 +31,4 @@ Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır.
 ## İletişim
 
 - **E-posta**: [oyuncunettv@yandex.com](mailto:oyuncunettv@yandex.com)
-- **Web Sitesi**: [MediaHub]([https://oyuncunettv.github.io/mediahub/])
+- **Web Sitesi**: [MediaHub](https://oyuncunettv.github.io/mediahub/)
