@@ -1,41 +1,56 @@
 document.addEventListener('DOMContentLoaded', function() {
     const nsfwToggle = document.getElementById('nsfwToggle');
     const videoPlayer = document.getElementById('iptvPlayer');
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
 
-    const loadVideoList = async () => {
-        try {
-            const response = await fetch('videolist.json');
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            console.error('Video listesi yüklenirken bir hata oluştu:', error);
-            return { defaultVideos: [], nsfwVideos: [] };
+    let videos = [];
+    let currentIndex = 0;
+
+    function fetchVideoList() {
+        fetch('videolist.json')
+            .then(response => response.json())
+            .then(data => {
+                updateVideoList(data);
+            })
+            .catch(error => {
+                console.error('Video list yüklenirken hata oluştu:', error);
+            });
+    }
+
+    function updateVideoList(data) {
+        if (nsfwToggle.checked) {
+            videos = [...data.defaultVideos, ...data.nsfwVideos];
+        } else {
+            videos = [...data.defaultVideos];
         }
-    };
+        currentIndex = Math.floor(Math.random() * videos.length);
+        updateVideoSource();
+    }
 
-    const getRandomVideo = (videos) => {
-        const randomIndex = Math.floor(Math.random() * videos.length);
-        return videos[randomIndex];
-    };
+    function updateVideoSource() {
+        videoPlayer.src = videos[currentIndex];
+    }
 
-    const updateVideoSource = (videos) => {
-        videoPlayer.src = getRandomVideo(videos);
-        videoPlayer.load();
-    };
-
-    nsfwToggle.addEventListener('change', async function() {
-        const { defaultVideos, nsfwVideos } = await loadVideoList();
-        const videos = nsfwToggle.checked ? defaultVideos : [...defaultVideos, ...nsfwVideos];
-        updateVideoSource(videos);
+    nsfwToggle.addEventListener('change', function() {
         localStorage.setItem('nsfwEnabled', nsfwToggle.checked);
+        updateVideoListFromLocal();
     });
 
-    // Sayfa yüklendiğinde
-    (async () => {
-        const { defaultVideos, nsfwVideos } = await loadVideoList();
-        const nsfwEnabled = JSON.parse(localStorage.getItem('nsfwEnabled') ?? 'true');
-        nsfwToggle.checked = !nsfwEnabled;
-        const videos = nsfwEnabled ? [...defaultVideos, ...nsfwVideos] : defaultVideos;
-        updateVideoSource(videos);
-    })();
+    function updateVideoListFromLocal() {
+        fetchVideoList();
+    }
+
+    prevButton.addEventListener('click', function() {
+        currentIndex = (currentIndex - 1 + videos.length) % videos.length;
+        updateVideoSource();
+    });
+
+    nextButton.addEventListener('click', function() {
+        currentIndex = (currentIndex + 1) % videos.length;
+        updateVideoSource();
+    });
+
+    // Başlangıçta videoyu yükle
+    fetchVideoList();
 });
