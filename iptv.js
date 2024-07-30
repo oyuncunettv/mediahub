@@ -10,8 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
 
     const nsfwVideos = [
-        'path/to/your/nsfw/video1.mp4',
-        'path/to/your/nsfw/video2.mp4',
+        'https://drive.google.com/file/d/11kO58e2u-61y-rMftJsGmaV2of8uXE_-/view?usp=drive_link',
+        'https://drive.google.com/file/d/1K2q0CQT9FJFFddzXi6NCOpsH3579j6vI/view?usp=drive_link',
+        'https://drive.google.com/file/d/1lZAcfRi3E2UGiWzJHklYI6XMm5XZeKuB/view?usp=drive_link',
+        'https://drive.google.com/file/d/1YfkfGzBJeTv5IvaCyqnuJt9Y5E81OK-2/view?usp=drive_link',
         // Diğer NSFW video yolları
     ];
 
