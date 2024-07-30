@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediaHub IPTV</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        video {
+            width: 80%;
+            max-width: 800px;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        .nsfw-toggle {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Özel IPTV Kanalı</h1>
+    <div class="nsfw-toggle">
+        <label>
+            <input type="checkbox" id="nsfwToggle"> NSFW'yu Kapat
+        </label>
+    </div>
+    <video id="iptvPlayer" controls>
+        <!-- Default video source -->
+        <source id="videoSource" src="path/to/your/default/video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <script src="iptv.js"></script>
+</body>
+</html>
