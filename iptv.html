@@ -21,6 +21,15 @@
         .nsfw-toggle {
             margin: 20px 0;
         }
+        .controls {
+            margin-top: 20px;
+        }
+        .controls button {
+            font-size: 16px;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -31,6 +40,10 @@
         </label>
     </div>
     <iframe id="iptvPlayer" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <div class="controls">
+        <button id="prevButton">Önceki Video</button>
+        <button id="nextButton">Sonraki Video</button>
+    </div>
     <script src="iptv.js"></script>
 </body>
 </html>
