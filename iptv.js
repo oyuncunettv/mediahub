@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     const nsfwToggle = document.getElementById('nsfwToggle');
-    const videoFrame = document.getElementById('videoFrame');
+    const videoPlayer = document.getElementById('iptvPlayer');
     const prevButton = document.getElementById('prevButton');
     const nextButton = document.getElementById('nextButton');
+    const videoSource = document.getElementById('videoSource');
 
     let videos = [];
     let currentIndex = 0;
@@ -29,7 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateVideoSource() {
-        videoFrame.src = videos[currentIndex];
+        videoSource.src = videos[currentIndex];
+        videoPlayer.load();
     }
 
     nsfwToggle.addEventListener('change', function() {
