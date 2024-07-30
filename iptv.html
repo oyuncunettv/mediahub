@@ -13,9 +13,8 @@
             background-color: #f4f4f4;
         }
         iframe {
-            width: 80%;
-            max-width: 1200px;
-            height: 720px; /* Yüksekliği 3 katı yapıldı */
+            width: 1280px; /* 720p genişlik */
+            height: 720px; /* 720p yükseklik */
             border: 1px solid #ccc;
             border-radius: 10px;
         }
@@ -31,8 +30,7 @@
             <input type="checkbox" id="nsfwToggle"> NSFW'yu Kapat
         </label>
     </div>
-    <!-- Video için iframe kullanımı -->
-    <iframe src="https://drive.google.com/file/d/1eFbeoNlIz3fECbyPtTbp25FBR83NFIJF/preview" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <iframe id="iptvPlayer" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     <script src="iptv.js"></script>
 </body>
 </html>
