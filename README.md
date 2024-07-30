@@ -6,7 +6,7 @@ MediaHub, kullanıcıların kendi özel IPTV içeriğini izleyebileceği ve yak�
 
 - **Özel IPTV Kanalları**: Kullanıcılar, belirli video dosyalarını izleyebilirler.
 - **Video Format Desteği**: MKV, MP4 ve diğer popüler video formatları.
-- **Tarayıcı Uyumluluğu**: Site, modern tarayıcılarla uyumludur. Eski tarayıcı kullanıcıları için bir hata sayfası sunulmaktadır.
+- **Tarayıcı Uyumluluğu**: Site, modern tarayıcılarla uyumludur. Eski tarayıcı kullanıcıları için hata verecektir.
 
 ## Kullanım
 
