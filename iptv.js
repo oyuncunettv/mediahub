@@ -1,56 +1,54 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const nsfwToggle = document.getElementById('nsfwToggle');
-    const videoFrame = document.getElementById('videoFrame');
-    const prevButton = document.getElementById('prevButton');
-    const nextButton = document.getElementById('nextButton');
+    const videoPlayer = document.getElementById('iptvPlayer');
+    const videoSource = document.getElementById('videoSource');
+    const prevButton = document.getElementById('prevVideo');
+    const nextButton = document.getElementById('nextVideo');
 
     let videos = [];
     let currentIndex = 0;
 
-    function fetchVideoList() {
-        fetch('videolist.json')
-            .then(response => response.json())
-            .then(data => {
-                updateVideoList(data);
-            })
-            .catch(error => {
-                console.error('Video list yüklenirken hata oluştu:', error);
-            });
-    }
-
-    function updateVideoList(data) {
-        if (nsfwToggle.checked) {
+    // Fetch video list from JSON file
+    fetch('videolist.json')
+        .then(response => response.json())
+        .then(data => {
+            // Combine and shuffle videos
             videos = [...data.defaultVideos, ...data.nsfwVideos];
-        } else {
-            videos = [...data.defaultVideos];
+            videos = shuffleArray(videos);
+            if (videos.length > 0) {
+                loadVideo();
+            }
+        })
+        .catch(error => console.error('Error loading video list:', error));
+
+    function loadVideo() {
+        if (videos.length > 0) {
+            videoSource.src = videos[currentIndex].url;
+            videoPlayer.load();
         }
-        currentIndex = Math.floor(Math.random() * videos.length);
-        updateVideoSource();
     }
 
-    function updateVideoSource() {
-        videoFrame.src = videos[currentIndex];
+    function showPrevVideo() {
+        if (videos.length > 0) {
+            currentIndex = (currentIndex - 1 + videos.length) % videos.length;
+            loadVideo();
+        }
     }
 
-    nsfwToggle.addEventListener('change', function() {
-        localStorage.setItem('nsfwEnabled', nsfwToggle.checked);
-        updateVideoListFromLocal();
-    });
-
-    function updateVideoListFromLocal() {
-        fetchVideoList();
+    function showNextVideo() {
+        if (videos.length > 0) {
+            currentIndex = (currentIndex + 1) % videos.length;
+            loadVideo();
+        }
     }
 
-    prevButton.addEventListener('click', function() {
-        currentIndex = (currentIndex - 1 + videos.length) % videos.length;
-        updateVideoSource();
-    });
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
 
-    nextButton.addEventListener('click', function() {
-        currentIndex = (currentIndex + 1) % videos.length;
-        updateVideoSource();
-    });
-
-    // Başlangıçta videoyu yükle
-    fetchVideoList();
+    prevButton.addEventListener('click', showPrevVideo);
+    nextButton.addEventListener('click', showNextVideo);
 });
