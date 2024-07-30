@@ -22,6 +22,13 @@
         .nsfw-toggle {
             margin: 20px 0;
         }
+        iframe {
+            width: 80%;
+            max-width: 800px;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
@@ -31,9 +38,8 @@
             <input type="checkbox" id="nsfwToggle"> NSFW'yu Kapat
         </label>
     </div>
-    <video id="iptvPlayer" controls>
-        <iframe src="https://drive.google.com/file/d/1eFbeoNlIz3fECbyPtTbp25FBR83NFIJF/view?usp=drive_link" width="640" height="480"></iframe>
-    </video>
+    <!-- Video için iframe kullanımı -->
+    <iframe src="https://drive.google.com/file/d/1eFbeoNlIz3fECbyPtTbp25FBR83NFIJF/preview" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     <script src="iptv.js"></script>
 </body>
 </html>
