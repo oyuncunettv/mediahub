@@ -12,7 +12,7 @@
             padding: 20px;
             background-color: #f4f4f4;
         }
-        iframe {
+        video {
             width: 1280px;
             height: 720px;
             border: 1px solid #ccc;
@@ -33,11 +33,49 @@
             <input type="checkbox" id="nsfwToggle"> NSFW'yu Kapat
         </label>
     </div>
-    <iframe id="videoPlayer" frameborder="0" allow="autoplay"></iframe>
+    <video id="videoPlayer" controls autoplay></video>
     <div class="controls">
         <button id="prevVideo">Önceki Video</button>
         <button id="nextVideo">Sonraki Video</button>
     </div>
-    <script src="iptv.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        var video = document.getElementById('videoPlayer');
+        if(Hls.isSupported()) {
+            var hls = new Hls();
+            hls.loadSource('https://github.com/suphero/IPTV/blob/master/TR.m3u8');
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED,function() {
+              video.play();
+            });
+        } 
+        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = 'https://github.com/suphero/IPTV/blob/master/TR.m3u8';
+            video.addEventListener('loadedmetadata',function() {
+              video.play();
+            });
+        }
+
+        // NSFW Toggle 
+        var nsfwToggle = document.getElementById('nsfwToggle');
+        nsfwToggle.addEventListener('change', function() {
+            if (nsfwToggle.checked) {
+                video.pause();
+                alert('NSFW içeriği kapatıldı.');
+            } else {
+                video.play();
+            }
+        });
+
+        // Video kontrol butonları
+        document.getElementById('prevVideo').addEventListener('click', function() {
+            alert('Önceki video fonksiyonu tanımlanmadı.');
+        });
+
+        document.getElementById('nextVideo').addEventListener('click', function() {
+            alert('Sonraki video fonksiyonu tanımlanmadı.');
+        });
+    </script>
 </body>
 </html>
